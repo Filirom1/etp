@@ -14,6 +14,13 @@ program
     .description('Generate artifact')
     .action(function (artifact, topology, output) {
         artifactType = artifact || "<notprovided>";
+        if(topology.indexOf('.yml' !== -1)){
+          var yaml = require('js-yaml');
+          var doc = yaml.safeLoad(fs.readFileSync(topology, 'utf8'));
+          jsonContent = JSON.stringify(doc)
+          topology = topology.replace('.yml', '.json')
+          fs.writeFileSync(topology, jsonContent)
+        }
         topologyFile = topology;
         outputFile = output || 'con';
 
