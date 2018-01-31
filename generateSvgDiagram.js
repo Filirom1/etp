@@ -14,11 +14,11 @@ xmlns:svg="http://www.w3.org/2000/svg"
 xmlns="http://www.w3.org/2000/svg"
 xmlns:xlink="http://www.w3.org/1999/xlink"
 height="700"
-width="1400"
+width="1600"
 xml:space="preserve"
 version="1.1"
 id="svg2">
-<rect id="legend" x="1200" y="10" width="200" height="600" style="fill:#ffffff;stroke:#bfbfbf"></rect>
+<rect id="legend" x="1400" y="10" width="200" height="600" style="fill:#ffffff;stroke:#bfbfbf"></rect>
   <text id="text1488" x="1230" y="20" style="font-weight:bold;font-size:10px;font-family:Arial;" text-anchor="start">Legend</text>
 ` );
 
@@ -53,9 +53,9 @@ id="svg2">
       return legendTemplate({
         id: component.id,
         name: component.name || component.id.toLowerCase(),
-        x: 1210,
+        x: 1410,
         y: y,
-        legendx: 1250,
+        legendx: 1450,
         legendy: y + 12
       })
     }).join("\n");
