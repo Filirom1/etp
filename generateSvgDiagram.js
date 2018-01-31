@@ -19,7 +19,7 @@ xml:space="preserve"
 version="1.1"
 id="svg2">
 <rect id="legend" x="1400" y="10" width="200" height="600" style="fill:#ffffff;stroke:#bfbfbf"></rect>
-  <text id="text1488" x="1230" y="20" style="font-weight:bold;font-size:10px;font-family:Arial;" text-anchor="start">Legend</text>
+  <text id="text1488" x="1430" y="20" style="font-weight:bold;font-size:10px;font-family:Arial;" text-anchor="start">Legend</text>
 ` );
 
     var componentTemplate = fp.template(`\n
