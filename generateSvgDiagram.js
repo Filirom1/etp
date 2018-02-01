@@ -1,10 +1,8 @@
-var fp = require("lodash/fp");
+(function(){
 
+function generateSvgDiagram ( topology ){
+    //var portdefs = require("./edge-defs.json");
 
-module.exports = function ( topologyFile, outputFile ){
-    var portdefs = require("./edge-defs.json");
-
-    var topology = require( topologyFile );
     //var topology = require("./uat-19n-3sn-topology.json");
 
 
@@ -30,9 +28,10 @@ id="svg2">
     <text id="text1488" x="12.5" y="10.5"
         style="font-weight:bold;font-size:9px;font-family:Arial;fill:<%= text %>;" 
         alignment-baseline="middle" text-anchor="middle"
-    ><%= id %></text>
+    ><%= id.toUpperCase() %></text>
 </symbol>
     `);
+	
 
     var legendTemplate = fp.template(`\n
   <use xlink:href="#<%= id.toLowerCase() %>"  x="<%= x %>" y="<%= y %>"/><text id="legend_r" x="<%= legendx %>" y="<%= legendy %>" style="font-weight:normal;font-size:7.5px;font-family:Arial;"><%= name %></text>
@@ -52,7 +51,7 @@ var svgSymbols = `
       y = y + 20;
       return legendTemplate({
         id: component.id,
-        name: component.name,
+        name: component.name || component.id.toLowerCase(),
         x: 1210,
         y: y,
         legendx: 1250,
@@ -149,10 +148,11 @@ var svgSymbols = `
 
     // TODO: refactor to utils
     // make lookup table for component:isApigee check
-    var isApigee = fp(portdefs.mappings.edge).reduce( (comps, comp) => {
+    /*var isApigee = fp(portdefs.mappings.edge).reduce( (comps, comp) => {
         comps[comp.client.component] = comp.client.apigee;
         return comps;
-    }, {});
+    }, {});*/
+	var isApigee = function(){return false};
 
     //
     // Pan-Diagram variables coordinate accumulators
@@ -511,11 +511,21 @@ var svgSymbols = `
     // console.log(nodesSvg.join("\n"));
     // console.log(svgFooter);
 
-    fs = require('fs');
-    var svgstream = fs.createWriteStream( outputFile );
-    svgstream.write( svgHeaderTemplate( { height: globalLbH + dcLbH + regionHeader +  maxRegionHeight + regionFooter + 10, width: regionX } ));
-    svgstream.write( svgSymbols );
-    svgstream.write( nodesSvg.join('\n') );
-    svgstream.write( svgFooter);
-    svgstream.end();
+
+	return [
+		svgHeaderTemplate( { height: globalLbH + dcLbH + regionHeader +  maxRegionHeight + regionFooter + 10, width: regionX } ),
+		svgSymbols,
+		nodesSvg.join('\n'),
+		svgFooter
+	].join("\n")
 }
+	
+  if (typeof module !== 'undefined' && typeof module.exports !== 'undefined'){
+	var fp = require("lodash/fp");
+    module.exports = generateSvgDiagram;
+  }else{
+	var fp = _.noConflict();
+    window.generateSvgDiagram = generateSvgDiagram;
+  }
+
+})()

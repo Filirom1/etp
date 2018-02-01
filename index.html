@@ -1,120 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>ETP Live Preview Editor</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            background-color: #F6F6F6;
+            overflow: hidden;
+            font-size: 16px;
+        }
+
+        .container {
+            padding: 8px;
+            display: block;
+            height: calc(100% - 40px);
+        }
+
+        .split {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .content {
+            border: 1px solid #C0C0C0;
+            box-shadow: inset 0 1px 2px #e4e4e4;
+            background-color: #fff;
+        }
+
+        .gutter {
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-position: 50%;
+        }
+
+        .gutter.gutter-vertical {
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAFAQMAAABo7865AAAABlBMVEVHcEzMzMzyAv2sAAAAAXRSTlMAQObYZgAAABBJREFUeF5jOAMEEAIEEFwAn3kMwcB6I2AAAAAASUVORK5CYII=')
+        }
+
+        .gutter.gutter-horizontal {
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==')
+        }
+
+        .gutter.gutter-horizontal:hover {
+            cursor: col-resize;
+        }
+
+        .split.split-horizontal,
+        .gutter.gutter-horizontal {
+            height: 100%;
+            float: left;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100%;
+            resize: none;
+            border: none;
+            outline: none;
+            padding: 10px;
+            font-family: monospace;
+            background: #FFFDE7;
+        }
+
+        #a {
+            overflow-y: hidden;
+        }
+
+        #b {
+            overflow: hidden;
+        }
+        #htmlOutput {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .navbar {
+            display: block;
+            padding: 8px 8px 0px 8px;
+        }
+        .title {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+      <span class="title">ETP Live Preview Editor</span> &middot; <a href="#" onclick="saveYAML()">Save As YAML</a> &middot; <a href="#" onclick="saveSVG()">Save As SVG</a>
+    </div>
+    <div class="container">
+    <div id="a" class="split split-horizontal content">
+        <textarea id="md" onkeyup="parseYAML()" onpaste="parseYAML()">
 ---
   planet: "PROD"
   brand: "sap"
-  components:
-  - id: ui
-    bg: #5287a2
-    stroke: #5287a2
-    text: #ffffff
-  - id: ms
-    bg: #5287a2
-    stroke: #5287a2
-    text: #ffffff
-  - id: r
-    bg: #5287a2
-    stroke: #5287a2
-    text: #ffffff
-  - id: mp
-    bg: #5287a2
-    stroke: #5287a2
-    text: #ffffff
-  - id: cs
-    bg: #ffffff
-    stroke: #5287a2
-    text: #5287a2
-  - id: zk
-    bg: #ffffff
-    stroke: #5287a2
-    text: #5287a2
-  - id: ol
-    bg: #ffffff
-    stroke: #5287a2
-    text: #5287a2
-  - id: bp
-    bg: #d3990a
-    stroke: #d3990a
-    text: #ffffff
-  - id: bs
-    bg: #d3990a
-    stroke: #d3990a
-    text: #ffffff
-  - id: nx
-    bg: #ffffff
-    stroke: #d3990a
-    text: #8bb148
-  - id: tc
-    bg: #ffffff
-    stroke: #d3990a
-    text: #8bb148
-  - id: es
-    bg: #ffffff
-    stroke: #d3990a
-    text: #8bb148
-  - id: ps
-    bg: #7a9543
-    stroke: #7a9543
-    text: #ffffff
-  - id: qs
-    bg: #7a9543
-    stroke: #7a9543
-    text: #ffffff
-  - id: qd
-    bg: #ffffff
-    stroke: #7a9543
-    text: #7a9543
-  - id: pg
-    bg: #ffffff
-    stroke: #7a9543
-    text: #7a9543
-  - id: pgm
-    bg: #ffffff
-    stroke: #7a9543
-    text: #7a9543
-  - id: pgs
-    bg: #ffffff
-    stroke: #7a9543
-    text: #7a9543
-  - id: dp
-    bg: #c0504d
-    stroke: #c0504d
-    text: #ffffff
-  - id: ht
-    bg: #ffffff
-    stroke: #c0504d
-    text: #c0504d
-  - id: my
-    bg: #ffffff
-    stroke: #c0504d
-    text: #c0504d
-  - id: no
-    bg: #ffffff
-    stroke: #fb2b08
-    text: #fb2b08
-  - id: git
-    bg: #ffffff
-    stroke: #fb2b08
-    text: #fb2b08
-  - id: jnk
-    bg: #ffffff
-    stroke: #fb2b08
-    text: #fb2b08
-  - id: mvn
-    bg: #ffffff
-    stroke: #fb2b08
-    text: #fb2b08
-  - id: tg
-    bg: #ffffff
-    stroke: #ff6601
-    text: #ff6601
-  - id: if
-    bg: #ffffff
-    stroke: #ff6601
-    text: #ff6601
-  - id: gf
-    bg: #ffffff
-    stroke: #ff6601
-    text: #ff6601
-- id: lb
   regions: 
     - 
       id: 1
@@ -401,4 +397,164 @@
       nodes: 
         - "/dc/1/n/1"
         - "/dc/2/n/7"
+  components:
+  - id: ui
+    name: User Interface
+    bg: '#5287a2'
+    stroke: '#5287a2'
+    text: '#ffffff'
+  - id: ms
+    name: Management Server
+    bg: '#5287a2'
+    stroke: '#5287a2'
+    text: '#ffffff'
+  - id: r
+    name: Router
+    bg: '#5287a2'
+    stroke: '#5287a2'
+    text: '#ffffff'
+  - id: mp
+    name: Message Processor
+    bg: '#5287a2'
+    stroke: '#5287a2'
+    text: '#ffffff'
+  - id: cs
+    name: Cassandra
+    bg: '#ffffff'
+    stroke: '#5287a2'
+    text: '#5287a2'
+  - id: zk
+    name: Zookeeper
+    bg: '#ffffff'
+    stroke: '#5287a2'
+    text: '#5287a2'
+  - id: ol
+    bg: '#ffffff'
+    stroke: '#5287a2'
+    text: '#5287a2'
+  - id: bp
+    bg: '#d3990a'
+    stroke: '#d3990a'
+    text: '#ffffff'
+  - id: bs
+    bg: '#d3990a'
+    stroke: '#d3990a'
+    text: '#ffffff'
+  - id: nx
+    bg: '#ffffff'
+    stroke: '#d3990a'
+    text: '#8bb148'
+  - id: tc
+    bg: '#ffffff'
+    stroke: '#d3990a'
+    text: '#8bb148'
+  - id: es
+    bg: '#ffffff'
+    stroke: '#d3990a'
+    text: '#8bb148'
+  - id: ps
+    bg: '#7a9543'
+    stroke: '#7a9543'
+    text: '#ffffff'
+  - id: qs
+    bg: '#7a9543'
+    stroke: '#7a9543'
+    text: '#ffffff'
+  - id: qd
+    bg: '#ffffff'
+    stroke: '#7a9543'
+    text: '#7a9543'
+  - id: pg
+    bg: '#ffffff'
+    stroke: '#7a9543'
+    text: '#7a9543'
+  - id: pgm
+    bg: '#ffffff'
+    stroke: '#7a9543'
+    text: '#7a9543'
+  - id: pgs
+    bg: '#ffffff'
+    stroke: '#7a9543'
+    text: '#7a9543'
+  - id: dp
+    bg: '#c0504d'
+    stroke: '#c0504d'
+    text: '#ffffff'
+  - id: ht
+    bg: '#ffffff'
+    stroke: '#c0504d'
+    text: '#c0504d'
+  - id: my
+    bg: '#ffffff'
+    stroke: '#c0504d'
+    text: '#c0504d'
+  - id: no
+    bg: '#ffffff'
+    stroke: '#fb2b08'
+    text: '#fb2b08'
+  - id: git
+    bg: '#ffffff'
+    stroke: '#fb2b08'
+    text: '#fb2b08'
+  - id: jnk
+    bg: '#ffffff'
+    stroke: '#fb2b08'
+    text: '#fb2b08'
+  - id: mvn
+    bg: '#ffffff'
+    stroke: '#fb2b08'
+    text: '#fb2b08'
+  - id: tg
+    bg: '#ffffff'
+    stroke: '#ff6601'
+    text: '#ff6601'
+  - id: if
+    bg: '#ffffff'
+    stroke: '#ff6601'
+    text: '#ff6601'
+  - id: gf
+    bg: '#ffffff'
+    stroke: '#ff6601'
+    text: '#ff6601'
+		</textarea>
+    </div>
+    <div id="b" class="split split-horizontal content">
+        <div id="htmlOutput"></div>
+    </div>
+    </div>
+    <script src="js/split.js"></script>
+	<script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.10.0/js-yaml.min.js'></script>
+    <script src="./generateSvgDiagram.js"></script>
+    <script src="js/FileSaver.min.js"></script>
+	
+    <script>
+        Split(['#a', '#b'], {
+            gutterSize: 8,
+            cursor: 'col-resize'
+        });
 
+        function parseYAML() {
+		    var topology = jsyaml.safeLoad(document.getElementById('md').value)
+            document.getElementById('htmlOutput').className = 'preview svg-body';
+            document.getElementById('htmlOutput').innerHTML = generateSvgDiagram(topology);
+        }
+
+        function saveYAML() {
+            var content = document.getElementById('md').value;
+            var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+            saveAs(blob, 'document.yml');
+            return false;
+        }
+
+        function saveSVG() {
+            var content = document.getElementById('htmlOutput').innerHTML
+            var blob = new Blob([content], {type: "text/html;charset=utf-8"});
+            saveAs(blob, 'document.svg');
+            return false;
+        }
+
+        parseYAML();
+    </script>
+</body>
+</html>

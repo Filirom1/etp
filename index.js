@@ -17,14 +17,11 @@ program
         if(topology.indexOf('.yml' !== -1)){
           var yaml = require('js-yaml');
           var doc = yaml.safeLoad(fs.readFileSync(topology, 'utf8'));
-          jsonContent = JSON.stringify(doc)
-          topology = topology.replace('.yml', '.json')
-          fs.writeFileSync(topology, jsonContent)
+		  topologyContent = doc;
         }
-        topologyFile = topology;
         outputFile = output || 'con';
 
-        program.directory = program.directory || topologyFile.replace( /-topology\.json$/, "" ); 
+        program.directory = program.directory; 
     });
 
 program.on('*', function () {
@@ -51,9 +48,6 @@ if (supportedArtifactTypes.indexOf(artifactType) == -1) {
 }
 
 // create an output directory for generated artifacts
-if (!fs.existsSync( program.directory )){
-    fs.mkdirSync( program.directory );
-}
 
 
 //console.log(artifactType);
@@ -67,7 +61,11 @@ if( artifactType === "portrequest"){
 }else if (artifactType === "diagram" ){
     var generateSvgDiagram = require( "./generateSvgDiagram.js" );
 
-    generateSvgDiagram(topologyFile, outputFile);
+    output = generateSvgDiagram(topologyContent);
+	fs = require('fs');
+    var svgstream = fs.createWriteStream( outputFile );
+    svgstream.write( output );
+    svgstream.end();
 }else if (artifactType === "inventory" ){
     var generateInventory = require( "./generateInventory.js" );
 
