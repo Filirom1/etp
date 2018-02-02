@@ -7,7 +7,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <script src="js/split.js"></script>
+	<script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.10.0/js-yaml.min.js'></script>
+	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="js/jquery.numberedtextarea.js"></script>
+    <script src="generateSvgDiagram.js"></script>
+    <script src="js/FileSaver.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
     <style>
         * {
@@ -98,6 +104,35 @@
         .title {
             font-weight: bold;
         }
+        div.numberedtextarea-wrapper { 
+            position: relative; 
+            height: 100%;
+        }
+
+        div.numberedtextarea-wrapper textarea {
+          display: block;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+        }
+
+        div.numberedtextarea-line-numbers {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 50px;
+          border-right: 1px solid rgba(0, 0, 0, 0.15);
+          color: rgba(0, 0, 0, 0.15);
+          overflow: hidden;
+        }
+
+        div.numberedtextarea-number {
+          padding-right: 6px;
+          text-align: right;
+        }
+
     </style>
 </head>
 
@@ -570,22 +605,27 @@ components:
         <div id="htmlOutput"></div>
     </div>
     </div>
-    <script src="js/split.js"></script>
-	<script src='https://cdn.jsdelivr.net/g/lodash@4(lodash.min.js+lodash.fp.min.js)'></script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.10.0/js-yaml.min.js'></script>
-    <script src="./generateSvgDiagram.js"></script>
-    <script src="js/FileSaver.min.js"></script>
+
 	
     <script>
         Split(['#a', '#b'], {
             gutterSize: 8,
             cursor: 'col-resize'
         });
+        $( document ).ready(function() {
+            $('textarea').numberedtextarea();
+        })
+        
 
         function parseYAML() {
-            var topology = jsyaml.safeLoad(document.getElementById('md').value)
-            document.getElementById('htmlOutput').className = 'preview svg-body';
-            document.getElementById('htmlOutput').innerHTML = generateSvgDiagram(topology);
+            try {
+              var topology = jsyaml.safeLoad(document.getElementById('md').value)
+              document.getElementById('htmlOutput').className = 'preview svg-body';
+              document.getElementById('htmlOutput').innerHTML = generateSvgDiagram(topology);
+            }catch(err){
+              document.getElementById('htmlOutput').innerHTML = err;
+            }
+
         }
 
         function saveYAML() {
