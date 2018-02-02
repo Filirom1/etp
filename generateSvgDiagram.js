@@ -37,11 +37,12 @@ id="svg2">
   <use xlink:href="#<%= id.toLowerCase() %>"  x="<%= x %>" y="<%= y %>"/><text id="legend_r" x="<%= legendx %>" y="<%= legendy %>" style="font-weight:normal;font-size:7.5px;font-family:Arial;"><%= name %></text>
     `);
 
-var svgSymbols = `
+    var svgSymbols = `
   <symbol id="struct">
     <rect id="compcs2" x="1.5" y="1.5" width="30" height="16" rx="3" style="stroke-width:1.5"/>
-</symbol>
-`;
+  </symbol>
+    `;
+
     var svgSymbols = svgSymbols + topology.components.map((component)=>{
       return componentTemplate(component)
     }).join("\n");
@@ -520,12 +521,12 @@ var svgSymbols = `
 	].join("\n")
 }
 	
-  if (typeof module !== 'undefined' && typeof module.exports !== 'undefined'){
-	var fp = require("lodash/fp");
-    module.exports = generateSvgDiagram;
-  }else{
-	var fp = _.noConflict();
-    window.generateSvgDiagram = generateSvgDiagram;
-  }
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined'){
+ var fp = require("lodash/fp");
+  module.exports = generateSvgDiagram;
+}else{
+  var fp = _.noConflict();
+  window.generateSvgDiagram = generateSvgDiagram;
+}
 
 })()
