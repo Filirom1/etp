@@ -109,413 +109,337 @@
     <div id="a" class="split split-horizontal content">
         <textarea id="md" onkeyup="parseYAML()" onpaste="parseYAML()">
 ---
-  planet: "PROD"
-  brand: "sap"
-  regions: 
-    - 
-      id: 1
-      name: "dc-1"
-      subnets: 
-        - 
-          name: "routers"
-          tier: "dmz"
-          nodes: 
-            - 
-              id: 1
-              hostname: "nnnxxxyyy01"
-              ip: "10.119.3.201"
-              rack: 1
-              components: 
-                - 
-                  comp: "R"
-            - 
-              id: 2
-              hostname: "nnnxxxyyy02"
-              ip: "10.119.3.202"
-              rack: 2
-              components: 
-                - 
-                  comp: "R"
-        - 
-          name: "devportals"
-          tier: "dmz"
-          nodes: 
-            - 
-              id: 8
-              hostname: "nnnxxxyyy08"
-              ip: "10.119.3.208"
-              rack: 1
-              components: 
-                - 
-                  comp: "DP"
-                - 
-                  comp: "HT"
-            - 
-              id: 9
-              hostname: "nnnxxxyyy09"
-              ip: "10.119.3.209"
-              components: 
-                - 
-                  comp: "DP"
-                - 
-                  comp: "HT"
-        - 
-          name: "gateway"
-          tier: "api-gateway"
-          nodes: 
-            - 
-              id: 3
-              hostname: "nnnxxxyyy03"
-              ip: "10.119.3.203"
-              components: 
-                - 
-                  comp: "MP"
-                - 
-                  comp: "MS"
-                  ldapHost: "/dc/1/n/13"
-                - 
-                  comp: "UI"
-            - 
-              id: 4
-              hostname: "nnnxxxyyy04"
-              ip: "10.119.3.204"
-              components: 
-                - 
-                  comp: "MP"
-            - 
-              id: 5
-              hostname: "nnnxxxyyy05"
-              ip: "10.119.3.205"
-              components: 
-                - 
-                  comp: "MP"
-            - 
-              id: 6
-              hostname: "nnnxxxyyy06"
-              ip: "10.119.3.206"
-              components: 
-                - 
-                  comp: "MP"
-            - 
-              id: 7
-              hostname: "nnnxxxyyy07"
-              ip: "10.119.3.207"
-              components: 
-                - 
-                  comp: "MP"
-        - 
-          name: "baas"
-          tier: "api-gateway"
-          nodes: 
-            - 
-              id: 10
-              hostname: "nnnxxxyyy10"
-              ip: "10.119.3.210"
-              components: 
-                - 
-                  comp: "BS"
-                - 
-                  comp: "BP"
-                - 
-                  comp: "NX"
-                - 
-                  comp: "ES"
-            - 
-              id: 11
-              hostname: "nnnxxxyyy11"
-              ip: "10.119.3.211"
-              components: 
-                - 
-                  comp: "BS"
-                - 
-                  comp: "BP"
-                - 
-                  comp: "NX"
-                - 
-                  comp: "ES"
-        - 
-          name: "cicd"
-          tier: "api-gateway"
-          nodes: 
-            - 
-              id: 12
-              hostname: "nnnxxxyyy12"
-              ip: "10.119.3.212"
-              components: 
-                - 
-                  comp: "GIT"
-                - 
-                  comp: "Jnk"
-                - 
-                  comp: "Mvn"
-        - 
-          name: "datastore"
-          tier: "db"
-          nodes: 
-            - 
-              id: 13
-              hostname: "nnnxxxyyy13"
-              ip: "10.119.3.213"
-              rack: 1
-              components: 
-                - 
-                  comp: "OL"
-                  ldapType: 2
-                  ldapSid: 1
-                  ldapPeer: "/dc/1/n/3"
-                - 
-                  comp: "CS"
-                - 
-                  comp: "ZK"
-            - 
-              id: 15
-              hostname: "nnnxxxyyy15"
-              ip: "10.119.3.215"
-              rack: 2
-              components: 
-                - 
-                  comp: "CS"
-                - 
-                  comp: "ZK"
-            - 
-              id: 16
-              hostname: "nnnxxxyyy16"
-              ip: "10.119.3.216"
-              rack: "3"
-              components: 
-                - 
-                  comp: "CS"
-                - 
-                  comp: "ZK"
-            - 
-              id: 17
-              hostname: "nnnxxxyyy17"
-              ip: "10.119.3.217"
-              rack: 1
-              components: 
-                - 
-                  comp: "CS"
-                - 
-                  comp: "ZK"
-            - 
-              id: 18
-              hostname: "nnnxxxyyy18"
-              ip: "10.119.3.218"
-              rack: 2
-              components: 
-                - 
-                  comp: "CS"
-                - 
-                  comp: "ZK"
-        - 
-          name: "analytics"
-          tier: "db"
-          nodes: 
-            - 
-              id: 19
-              hostname: "nnnxxxyyy19"
-              ip: "10.119.3.219"
-              components: 
-                - 
-                  comp: "PS"
-                - 
-                  comp: "QS"
-                - 
-                  comp: "PGm"
-                - 
-                  comp: "QD"
-            - 
-              id: 29
-              hostname: "nnnxxxyyy20"
-              ip: "10.119.3.220"
-              components: 
-                - 
-                  comp: "QD"
-      tiers: 
-        - 
-          name: "dmz"
-        - 
-          name: "api-gateway"
-        - 
-          name: "db"
-      externalclients: 
-        - 
-          name: "UICLNT"
-          source: "0.0.0.0/0"
-  loadbalancers: 
-    - 
-      name: "dmz-r-ha"
-      comp: "R"
-      heartbeaturi: "http://xxxx"
-      port: 8080
-      heartbeattype: "socket"
-      responsecode: 200
-      nodes: 
-        - "/dc/1/n/1"
-        - "/dc/1/n/3"
-        - "/dc/1/n/5"
-        - "/dc/1/n/5"
-        - "/dc/1/n/5"
-        - "/dc/2/n/7"
-    - 
-      name: "dmz-r-ha"
-      comp: "DP"
-      heartbeaturi: "http://xxxx"
-      port: 8080
-      heartbeattype: "socket"
-      responsecode: 200
-      nodes: 
-        - "/dc/1/n/1"
-        - "/dc/2/n/7"
-    - 
-      name: "dmz-r-ha"
-      comp: "DP"
-      heartbeaturi: "http://xxxx"
-      port: 8080
-      heartbeattype: "socket"
-      responsecode: 200
-      nodes: 
-        - "/dc/1/n/1"
-        - "/dc/2/n/7"
-    - 
-      name: "dmz-r-ha"
-      comp: "DP"
-      heartbeaturi: "http://xxxx"
-      port: 8080
-      heartbeattype: "socket"
-      responsecode: 200
-      nodes: 
-        - "/dc/1/n/1"
-        - "/dc/2/n/7"
-    - 
-      name: "dmz-r-ha"
-      comp: "DP"
-      heartbeaturi: "http://xxxx"
-      port: 8080
-      heartbeattype: "socket"
-      responsecode: 200
-      nodes: 
-        - "/dc/1/n/1"
-        - "/dc/2/n/7"
-  components:
-  - id: ui
-    name: User Interface
-    bg: '#5287a2'
-    stroke: '#5287a2'
-    text: '#ffffff'
-  - id: ms
-    name: Management Server
-    bg: '#5287a2'
-    stroke: '#5287a2'
-    text: '#ffffff'
-  - id: r
-    name: Router
-    bg: '#5287a2'
-    stroke: '#5287a2'
-    text: '#ffffff'
-  - id: mp
-    name: Message Processor
-    bg: '#5287a2'
-    stroke: '#5287a2'
-    text: '#ffffff'
-  - id: cs
-    name: Cassandra
-    bg: '#ffffff'
-    stroke: '#5287a2'
-    text: '#5287a2'
-  - id: zk
-    name: Zookeeper
-    bg: '#ffffff'
-    stroke: '#5287a2'
-    text: '#5287a2'
-  - id: ol
-    bg: '#ffffff'
-    stroke: '#5287a2'
-    text: '#5287a2'
-  - id: bp
-    bg: '#d3990a'
-    stroke: '#d3990a'
-    text: '#ffffff'
-  - id: bs
-    bg: '#d3990a'
-    stroke: '#d3990a'
-    text: '#ffffff'
-  - id: nx
-    bg: '#ffffff'
-    stroke: '#d3990a'
-    text: '#8bb148'
-  - id: tc
-    bg: '#ffffff'
-    stroke: '#d3990a'
-    text: '#8bb148'
-  - id: es
-    bg: '#ffffff'
-    stroke: '#d3990a'
-    text: '#8bb148'
-  - id: ps
-    bg: '#7a9543'
-    stroke: '#7a9543'
-    text: '#ffffff'
-  - id: qs
-    bg: '#7a9543'
-    stroke: '#7a9543'
-    text: '#ffffff'
-  - id: qd
-    bg: '#ffffff'
-    stroke: '#7a9543'
-    text: '#7a9543'
-  - id: pg
-    bg: '#ffffff'
-    stroke: '#7a9543'
-    text: '#7a9543'
-  - id: pgm
-    bg: '#ffffff'
-    stroke: '#7a9543'
-    text: '#7a9543'
-  - id: pgs
-    bg: '#ffffff'
-    stroke: '#7a9543'
-    text: '#7a9543'
-  - id: dp
-    bg: '#c0504d'
-    stroke: '#c0504d'
-    text: '#ffffff'
-  - id: ht
-    bg: '#ffffff'
-    stroke: '#c0504d'
-    text: '#c0504d'
-  - id: my
-    bg: '#ffffff'
-    stroke: '#c0504d'
-    text: '#c0504d'
-  - id: no
-    bg: '#ffffff'
-    stroke: '#fb2b08'
-    text: '#fb2b08'
-  - id: git
-    bg: '#ffffff'
-    stroke: '#fb2b08'
-    text: '#fb2b08'
-  - id: jnk
-    bg: '#ffffff'
-    stroke: '#fb2b08'
-    text: '#fb2b08'
-  - id: mvn
-    bg: '#ffffff'
-    stroke: '#fb2b08'
-    text: '#fb2b08'
-  - id: tg
-    bg: '#ffffff'
-    stroke: '#ff6601'
-    text: '#ff6601'
-  - id: if
-    bg: '#ffffff'
-    stroke: '#ff6601'
-    text: '#ff6601'
-  - id: gf
-    bg: '#ffffff'
-    stroke: '#ff6601'
-    text: '#ff6601'
+planet: PROD
+brand: sap
+regions:
+- id: 1
+  name: dc-1
+  subnets:
+  - name: routers
+    tier: dmz
+    nodes:
+    - id: 1
+      hostname: nnnxxxyyy01
+      ip: 10.119.3.201
+      rack: 1
+      components:
+      - comp: R
+    - id: 2
+      hostname: nnnxxxyyy02
+      ip: 10.119.3.202
+      rack: 2
+      components:
+      - comp: R
+  - name: devportals
+    tier: dmz
+    nodes:
+    - id: 8
+      hostname: nnnxxxyyy08
+      ip: 10.119.3.208
+      rack: 1
+      components:
+      - comp: DP
+      - comp: HT
+    - id: 9
+      hostname: nnnxxxyyy09
+      ip: 10.119.3.209
+      components:
+      - comp: DP
+      - comp: HT
+  - name: gateway
+    tier: api-gateway
+    nodes:
+    - id: 3
+      hostname: nnnxxxyyy03
+      ip: 10.119.3.203
+      components:
+      - comp: MP
+      - comp: MS
+        ldapHost: "/dc/1/n/13"
+      - comp: UI
+    - id: 4
+      hostname: nnnxxxyyy04
+      ip: 10.119.3.204
+      components:
+      - comp: MP
+    - id: 5
+      hostname: nnnxxxyyy05
+      ip: 10.119.3.205
+      components:
+      - comp: MP
+    - id: 6
+      hostname: nnnxxxyyy06
+      ip: 10.119.3.206
+      components:
+      - comp: MP
+    - id: 7
+      hostname: nnnxxxyyy07
+      ip: 10.119.3.207
+      components:
+      - comp: MP
+  - name: baas
+    tier: api-gateway
+    nodes:
+    - id: 10
+      hostname: nnnxxxyyy10
+      ip: 10.119.3.210
+      components:
+      - comp: BS
+      - comp: BP
+      - comp: NX
+      - comp: ES
+    - id: 11
+      hostname: nnnxxxyyy11
+      ip: 10.119.3.211
+      components:
+      - comp: BS
+      - comp: BP
+      - comp: NX
+      - comp: ES
+  - name: cicd
+    tier: api-gateway
+    nodes:
+    - id: 12
+      hostname: nnnxxxyyy12
+      ip: 10.119.3.212
+      components:
+      - comp: GIT
+      - comp: Jnk
+      - comp: Mvn
+  - name: datastore
+    tier: db
+    nodes:
+    - id: 13
+      hostname: nnnxxxyyy13
+      ip: 10.119.3.213
+      rack: 1
+      components:
+      - comp: OL
+        ldapType: 2
+        ldapSid: 1
+        ldapPeer: "/dc/1/n/3"
+      - comp: CS
+      - comp: ZK
+    - id: 15
+      hostname: nnnxxxyyy15
+      ip: 10.119.3.215
+      rack: 2
+      components:
+      - comp: CS
+      - comp: ZK
+    - id: 16
+      hostname: nnnxxxyyy16
+      ip: 10.119.3.216
+      rack: '3'
+      components:
+      - comp: CS
+      - comp: ZK
+    - id: 17
+      hostname: nnnxxxyyy17
+      ip: 10.119.3.217
+      rack: 1
+      components:
+      - comp: CS
+      - comp: ZK
+    - id: 18
+      hostname: nnnxxxyyy18
+      ip: 10.119.3.218
+      rack: 2
+      components:
+      - comp: CS
+      - comp: ZK
+  - name: analytics
+    tier: db
+    nodes:
+    - id: 19
+      hostname: nnnxxxyyy19
+      ip: 10.119.3.219
+      components:
+      - comp: PS
+      - comp: QS
+      - comp: PGm
+      - comp: QD
+    - id: 29
+      hostname: nnnxxxyyy20
+      ip: 10.119.3.220
+      components:
+      - comp: QD
+  tiers:
+  - name: dmz
+  - name: api-gateway
+  - name: db
+  externalclients:
+  - name: UICLNT
+    source: 0.0.0.0/0
+loadbalancers:
+- name: dmz-r-ha
+  comp: R
+  heartbeaturi: http://xxxx
+  port: 8080
+  heartbeattype: socket
+  responsecode: 200
+  nodes:
+  - "/dc/1/n/1"
+  - "/dc/1/n/3"
+  - "/dc/1/n/5"
+  - "/dc/1/n/5"
+  - "/dc/1/n/5"
+  - "/dc/2/n/7"
+- name: dmz-r-ha
+  comp: DP
+  heartbeaturi: http://xxxx
+  port: 8080
+  heartbeattype: socket
+  responsecode: 200
+  nodes:
+  - "/dc/1/n/1"
+  - "/dc/2/n/7"
+- name: dmz-r-ha
+  comp: DP
+  heartbeaturi: http://xxxx
+  port: 8080
+  heartbeattype: socket
+  responsecode: 200
+  nodes:
+  - "/dc/1/n/1"
+  - "/dc/2/n/7"
+- name: dmz-r-ha
+  comp: DP
+  heartbeaturi: http://xxxx
+  port: 8080
+  heartbeattype: socket
+  responsecode: 200
+  nodes:
+  - "/dc/1/n/1"
+  - "/dc/2/n/7"
+- name: dmz-r-ha
+  comp: DP
+  heartbeaturi: http://xxxx
+  port: 8080
+  heartbeattype: socket
+  responsecode: 200
+  nodes:
+  - "/dc/1/n/1"
+  - "/dc/2/n/7"
+components:
+- id: ui
+  name: User Interface
+  bg: "#5287a2"
+  stroke: "#5287a2"
+  text: "#ffffff"
+- id: ms
+  name: Management Server
+  bg: "#5287a2"
+  stroke: "#5287a2"
+  text: "#ffffff"
+- id: r
+  name: Router
+  bg: "#5287a2"
+  stroke: "#5287a2"
+  text: "#ffffff"
+- id: mp
+  name: Message Processor
+  bg: "#5287a2"
+  stroke: "#5287a2"
+  text: "#ffffff"
+- id: cs
+  name: Cassandra
+  bg: "#ffffff"
+  stroke: "#5287a2"
+  text: "#5287a2"
+- id: zk
+  name: Zookeeper
+  bg: "#ffffff"
+  stroke: "#5287a2"
+  text: "#5287a2"
+- id: ol
+  bg: "#ffffff"
+  stroke: "#5287a2"
+  text: "#5287a2"
+- id: bp
+  bg: "#d3990a"
+  stroke: "#d3990a"
+  text: "#ffffff"
+- id: bs
+  bg: "#d3990a"
+  stroke: "#d3990a"
+  text: "#ffffff"
+- id: nx
+  bg: "#ffffff"
+  stroke: "#d3990a"
+  text: "#8bb148"
+- id: tc
+  bg: "#ffffff"
+  stroke: "#d3990a"
+  text: "#8bb148"
+- id: es
+  bg: "#ffffff"
+  stroke: "#d3990a"
+  text: "#8bb148"
+- id: ps
+  bg: "#7a9543"
+  stroke: "#7a9543"
+  text: "#ffffff"
+- id: qs
+  bg: "#7a9543"
+  stroke: "#7a9543"
+  text: "#ffffff"
+- id: qd
+  bg: "#ffffff"
+  stroke: "#7a9543"
+  text: "#7a9543"
+- id: pg
+  bg: "#ffffff"
+  stroke: "#7a9543"
+  text: "#7a9543"
+- id: pgm
+  bg: "#ffffff"
+  stroke: "#7a9543"
+  text: "#7a9543"
+- id: pgs
+  bg: "#ffffff"
+  stroke: "#7a9543"
+  text: "#7a9543"
+- id: dp
+  bg: "#c0504d"
+  stroke: "#c0504d"
+  text: "#ffffff"
+- id: ht
+  bg: "#ffffff"
+  stroke: "#c0504d"
+  text: "#c0504d"
+- id: my
+  bg: "#ffffff"
+  stroke: "#c0504d"
+  text: "#c0504d"
+- id: 'no'
+  bg: "#ffffff"
+  stroke: "#fb2b08"
+  text: "#fb2b08"
+- id: git
+  bg: "#ffffff"
+  stroke: "#fb2b08"
+  text: "#fb2b08"
+- id: jnk
+  bg: "#ffffff"
+  stroke: "#fb2b08"
+  text: "#fb2b08"
+- id: mvn
+  bg: "#ffffff"
+  stroke: "#fb2b08"
+  text: "#fb2b08"
+- id: tg
+  bg: "#ffffff"
+  stroke: "#ff6601"
+  text: "#ff6601"
+- id: if
+  bg: "#ffffff"
+  stroke: "#ff6601"
+  text: "#ff6601"
+- id: gf
+  bg: "#ffffff"
+  stroke: "#ff6601"
+  text: "#ff6601"
 		</textarea>
     </div>
     <div id="b" class="split split-horizontal content">
@@ -535,7 +459,7 @@
         });
 
         function parseYAML() {
-		    var topology = jsyaml.safeLoad(document.getElementById('md').value)
+            var topology = jsyaml.safeLoad(document.getElementById('md').value)
             document.getElementById('htmlOutput').className = 'preview svg-body';
             document.getElementById('htmlOutput').innerHTML = generateSvgDiagram(topology);
         }
