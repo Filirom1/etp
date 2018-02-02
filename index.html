@@ -110,7 +110,7 @@
         <textarea id="md" onkeyup="parseYAML()" onpaste="parseYAML()">
 ---
 planet: PROD
-brand: sap
+version: 0.3.19
 regions:
 - id: 1
   name: dc-1
@@ -119,29 +119,27 @@ regions:
     tier: dmz
     nodes:
     - id: 1
-      hostname: nnnxxxyyy01
+      rack: 2
+      hostname: dc1snrtsn01
       ip: 10.119.3.201
-      rack: 1
       components:
       - comp: R
     - id: 2
-      hostname: nnnxxxyyy02
+      hostname: dc1snrtsn02
       ip: 10.119.3.202
-      rack: 2
       components:
       - comp: R
   - name: devportals
     tier: dmz
     nodes:
     - id: 8
-      hostname: nnnxxxyyy08
+      hostname: dc1sndpsn08
       ip: 10.119.3.208
-      rack: 1
       components:
       - comp: DP
       - comp: HT
     - id: 9
-      hostname: nnnxxxyyy09
+      hostname: dc1sndpsn09
       ip: 10.119.3.209
       components:
       - comp: DP
@@ -150,30 +148,29 @@ regions:
     tier: api-gateway
     nodes:
     - id: 3
-      hostname: nnnxxxyyy03
+      hostname: dc1sngwsn03
       ip: 10.119.3.203
       components:
       - comp: MP
       - comp: MS
-        ldapHost: "/dc/1/n/13"
       - comp: UI
     - id: 4
-      hostname: nnnxxxyyy04
+      hostname: dc1sngwsn04
       ip: 10.119.3.204
       components:
       - comp: MP
     - id: 5
-      hostname: nnnxxxyyy05
+      hostname: dc1sngwsn05
       ip: 10.119.3.205
       components:
       - comp: MP
     - id: 6
-      hostname: nnnxxxyyy06
+      hostname: dc1sngwsn06
       ip: 10.119.3.206
       components:
       - comp: MP
     - id: 7
-      hostname: nnnxxxyyy07
+      hostname: dc1sngwsn07
       ip: 10.119.3.207
       components:
       - comp: MP
@@ -181,7 +178,7 @@ regions:
     tier: api-gateway
     nodes:
     - id: 10
-      hostname: nnnxxxyyy10
+      hostname: dc1snbasn10
       ip: 10.119.3.210
       components:
       - comp: BS
@@ -189,7 +186,7 @@ regions:
       - comp: NX
       - comp: ES
     - id: 11
-      hostname: nnnxxxyyy11
+      hostname: dc1snbasn11
       ip: 10.119.3.211
       components:
       - comp: BS
@@ -200,7 +197,7 @@ regions:
     tier: api-gateway
     nodes:
     - id: 12
-      hostname: nnnxxxyyy12
+      hostname: dc1sncicn12
       ip: 10.119.3.212
       components:
       - comp: GIT
@@ -210,41 +207,38 @@ regions:
     tier: db
     nodes:
     - id: 13
-      hostname: nnnxxxyyy13
-      ip: 10.119.3.213
       rack: 1
+      hostname: dc1sndstn13
+      ip: 10.119.3.213
       components:
       - comp: OL
-        ldapType: 2
-        ldapSid: 1
-        ldapPeer: "/dc/1/n/3"
       - comp: CS
       - comp: ZK
     - id: 15
-      hostname: nnnxxxyyy15
-      ip: 10.119.3.215
       rack: 2
+      hostname: dc1sndstn15
+      ip: 10.119.3.215
       components:
       - comp: CS
       - comp: ZK
     - id: 16
-      hostname: nnnxxxyyy16
+      rack: 3
+      hostname: dc1sndstn16
       ip: 10.119.3.216
-      rack: '3'
       components:
       - comp: CS
       - comp: ZK
     - id: 17
-      hostname: nnnxxxyyy17
+      rack: 2
+      hostname: dc1sndstn17
       ip: 10.119.3.217
-      rack: 1
       components:
       - comp: CS
       - comp: ZK
     - id: 18
-      hostname: nnnxxxyyy18
+      rack: 3
+      hostname: dc1sndstn18
       ip: 10.119.3.218
-      rack: 2
       components:
       - comp: CS
       - comp: ZK
@@ -252,7 +246,7 @@ regions:
     tier: db
     nodes:
     - id: 19
-      hostname: nnnxxxyyy19
+      hostname: dc1snanxn19
       ip: 10.119.3.219
       components:
       - comp: PS
@@ -260,7 +254,7 @@ regions:
       - comp: PGm
       - comp: QD
     - id: 29
-      hostname: nnnxxxyyy20
+      hostname: dc1snanxn20
       ip: 10.119.3.220
       components:
       - comp: QD
@@ -271,8 +265,181 @@ regions:
   externalclients:
   - name: UICLNT
     source: 0.0.0.0/0
+  loadbalancers:
+  - name: dmz-r-ha
+    comp: R
+    heartbeaturi: http://xxxx
+    port: 8080
+    heartbeattype: socket
+    responsecode: 200
+    nodes:
+    - "/dc/2/n/1"
+    - "/dc/2/n/1"
+
+- id: 2
+  name: dc-2
+  subnets:
+  - name: routers
+    tier: dmz
+    nodes:
+    - id: 1
+      hostname: dc2snrtsn01
+      ip: 10.119.5.201
+      components:
+      - comp: R
+    - id: 2
+      hostname: dc2snrtsn02
+      ip: 10.119.5.202
+      components:
+      - comp: R
+  - name: devportals
+    tier: dmz
+    nodes:
+    - id: 8
+      hostname: dc2sndpsn08
+      ip: 10.119.5.208
+      components:
+      - comp: DP
+      - comp: HT
+    - id: 9
+      hostname: dc2sndpsn09
+      ip: 10.119.5.209
+      components:
+      - comp: DP
+      - comp: HT
+  - name: gateway
+    tier: api-gateway
+    nodes:
+    - id: 3
+      hostname: dc2sngwsn03
+      ip: 10.119.5.203
+      components:
+      - comp: MP
+      - comp: MS
+      - comp: UI
+    - id: 4
+      hostname: dc2sngwsn04
+      ip: 10.119.5.204
+      components:
+      - comp: MP
+    - id: 5
+      hostname: dc2sngwsn05
+      ip: 10.119.5.205
+      components:
+      - comp: MP
+    - id: 6
+      hostname: dc2sngwsn06
+      ip: 10.119.5.206
+      components:
+      - comp: MP
+    - id: 7
+      hostname: dc2sngwsn07
+      ip: 10.119.5.207
+      components:
+      - comp: MP
+  - name: baas
+    tier: api-gateway
+    nodes:
+    - id: 10
+      hostname: dc2snbasn10
+      ip: 10.119.5.210
+      components:
+      - comp: BS
+      - comp: BP
+      - comp: NX
+      - comp: ES
+    - id: 11
+      hostname: dc2snbasn11
+      ip: 10.119.5.211
+      components:
+      - comp: BS
+      - comp: BP
+      - comp: NX
+      - comp: ES
+  - name: cicd
+    tier: api-gateway
+    nodes:
+    - id: 12
+      hostname: dc2sncicn12
+      ip: 10.119.5.212
+      components:
+      - comp: GIT
+      - comp: Jnk
+      - comp: Mvn
+  - name: datastore
+    tier: db
+    nodes:
+    - id: 13
+      rack: 2
+      hostname: dc2sndstn13
+      ip: 10.119.5.213
+      components:
+      - comp: OL
+      - comp: CS
+      - comp: ZK
+    - id: 15
+      rack: 3
+      hostname: dc2sndstn15
+      ip: 10.119.5.215
+      components:
+      - comp: CS
+      - comp: ZK
+    - id: 16
+      rack: 1
+      hostname: dc2sndstn16
+      ip: 10.119.5.216
+      components:
+      - comp: CS
+      - comp: ZK
+    - id: 17
+      rack: 2
+      hostname: dc2sndstn17
+      ip: 10.119.5.217
+      components:
+      - comp: CS
+      - comp: ZK
+    - id: 18
+      rack: 3
+      hostname: dc2sndstn18
+      ip: 10.119.5.218
+      components:
+      - comp: CS
+      - comp: ZK
+  - name: analytics
+    tier: db
+    nodes:
+    - id: 19
+      hostname: dc2snanxn19
+      ip: 10.119.5.219
+      components:
+      - comp: PS
+      - comp: QS
+      - comp: PGs
+      - comp: QD
+    - id: 29
+      hostname: dc2snanxn20
+      ip: 10.119.5.220
+      components:
+      - comp: QD
+  tiers:
+  - name: dmz
+  - name: api-gateway
+  - name: db
+  externalclients:
+  - name: UICLNT
+    source: 0.0.0.0/0
+  loadbalancers:
+  - name: dmz-r-ha
+    comp: R
+    heartbeaturi: http://xxxx
+    port: 8080
+    heartbeattype: socket
+    responsecode: 200
+    nodes:
+    - "/dc/2/n/1"
+    - "/dc/2/n/3"
 loadbalancers:
-- name: dmz-r-ha
+- name: gtm-r-ha
   comp: R
   heartbeaturi: http://xxxx
   port: 8080
@@ -280,47 +447,20 @@ loadbalancers:
   responsecode: 200
   nodes:
   - "/dc/1/n/1"
-  - "/dc/1/n/3"
-  - "/dc/1/n/5"
-  - "/dc/1/n/5"
-  - "/dc/1/n/5"
-  - "/dc/2/n/7"
-- name: dmz-r-ha
-  comp: DP
+  - "/dc/1/n/2"
+  - "/dc/2/n/1"
+  - "/dc/2/n/2"
+- name: gtm-r-ha
+  comp: R
   heartbeaturi: http://xxxx
   port: 8080
   heartbeattype: socket
   responsecode: 200
   nodes:
   - "/dc/1/n/1"
-  - "/dc/2/n/7"
-- name: dmz-r-ha
-  comp: DP
-  heartbeaturi: http://xxxx
-  port: 8080
-  heartbeattype: socket
-  responsecode: 200
-  nodes:
-  - "/dc/1/n/1"
-  - "/dc/2/n/7"
-- name: dmz-r-ha
-  comp: DP
-  heartbeaturi: http://xxxx
-  port: 8080
-  heartbeattype: socket
-  responsecode: 200
-  nodes:
-  - "/dc/1/n/1"
-  - "/dc/2/n/7"
-- name: dmz-r-ha
-  comp: DP
-  heartbeaturi: http://xxxx
-  port: 8080
-  heartbeattype: socket
-  responsecode: 200
-  nodes:
-  - "/dc/1/n/1"
-  - "/dc/2/n/7"
+  - "/dc/1/n/2"
+  - "/dc/2/n/1"
+  - "/dc/2/n/2"
 components:
 - id: ui
   name: User Interface
@@ -412,10 +552,6 @@ components:
   bg: "#ffffff"
   stroke: "#c0504d"
   text: "#c0504d"
-- id: 'no'
-  bg: "#ffffff"
-  stroke: "#fb2b08"
-  text: "#fb2b08"
 - id: git
   bg: "#ffffff"
   stroke: "#fb2b08"
@@ -428,18 +564,6 @@ components:
   bg: "#ffffff"
   stroke: "#fb2b08"
   text: "#fb2b08"
-- id: tg
-  bg: "#ffffff"
-  stroke: "#ff6601"
-  text: "#ff6601"
-- id: if
-  bg: "#ffffff"
-  stroke: "#ff6601"
-  text: "#ff6601"
-- id: gf
-  bg: "#ffffff"
-  stroke: "#ff6601"
-  text: "#ff6601"
 		</textarea>
     </div>
     <div id="b" class="split split-horizontal content">
